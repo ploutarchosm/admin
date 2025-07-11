@@ -1,13 +1,12 @@
-import {BadRequestException, Injectable, Logger} from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
-import {isEmpty} from 'lodash';
-import {Model} from 'mongoose';
-import {IListQuery, IListResponse, throwErrorStack} from "@ploutos/common";
-import {Role} from "../schemas/role.schema";
-import {Permission} from "../schemas/permission.schema";
-import {RolePermission} from "../schemas/role-permission.schema";
-import {CreateRoleDto} from "../dto/role,dto";
-import {UserRoles} from "../schemas/user-role.schema";
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { isEmpty } from 'lodash';
+import { Model } from 'mongoose';
+import { IListQuery, IListResponse, throwErrorStack } from "@ploutos/common";
+import { Role } from "../schemas/role.schema";
+import { Permission } from "../schemas/permission.schema";
+import { RolePermission } from "../schemas/role-permission.schema";
+import { CreateRoleDto } from "../dto/role.dto";
 
 @Injectable()
 export class RoleService {
@@ -20,8 +19,6 @@ export class RoleService {
         private permissionModel: Model<Permission>,
         @InjectModel(RolePermission.name)
         private rolePermissionModel: Model<RolePermission>,
-        @InjectModel(UserRoles.name)
-        private userRolesModel: Model<UserRoles>,
     ) {}
 
     /**
@@ -75,31 +72,6 @@ export class RoleService {
         } catch (error) {
             this.logger.error('Error while deleting role: ', error);
             throwErrorStack(error, 'Error while deleting role');
-        }
-    }
-
-    /**
-     * @description - Get user roles by userId
-     * @param userId
-     */
-    async getUserRoles(userId: string) {
-        try {
-            return await this.userRolesModel.aggregate([
-                { $match: {userId} },
-                {
-                    $lookup: {
-                        from: 'roles', // Collection name for roles
-                        localField: 'roleId',
-                        foreignField: '_id',
-                        as: 'role'
-                    }
-                },
-                { $unwind: '$role' },
-                { $replaceRoot: { newRoot: '$role' } }
-            ]).exec();
-        } catch (error) {
-            this.logger.error('Error while getting user roles by userId: ', error);
-            throwErrorStack(error, 'Error while getting user roles by userId.');
         }
     }
 

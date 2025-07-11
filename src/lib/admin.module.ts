@@ -35,11 +35,7 @@ import { RoleService } from "./services/role.service";
         {
             provide: INJECTION_TOKENS.ROLE_SERVICE,
             useClass: RoleService,
-        },
-        {
-            provide: INJECTION_TOKENS.PERMISSION_SERVICE,
-            useClass: RoleService,
-        },
+        }
     ],
     exports: [
         INJECTION_TOKENS.USER_SERVICE,

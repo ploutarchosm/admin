@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsMongoId, IsString, MaxLength } from 'class-validator';
+import { IsDefined, IsString, MaxLength } from 'class-validator';
 
 export class CreateRoleDto {
     @ApiProperty()

@@ -1,5 +1,5 @@
 import { IUser } from "./user.interface";
-import { CreateUserRegistrationDto, UserDto } from "../dto/user,dto";
+import { CreateUserRegistrationDto, UserDto } from "../dto/user.dto";
 import { DeleteResult, UpdateWriteOpResult } from "mongoose";
 
 export interface IUserService {

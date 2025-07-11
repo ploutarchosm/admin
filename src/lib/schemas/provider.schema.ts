@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ProviderType } from '../interfaces/provider.interface';
 import { Document } from 'mongoose';
+import { EProvider } from "@ploutos/common";
 
 @Schema({
     collection: 'providers',
@@ -10,10 +10,10 @@ import { Document } from 'mongoose';
 export class Provider extends Document {
     @Prop({
         type: String,
-        enum: ProviderType,
+        enum: EProvider,
         required: true,
     })
-    provider: ProviderType;
+    provider: EProvider;
 
     @Prop({
         type: String,
