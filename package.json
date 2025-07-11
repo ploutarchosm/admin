@@ -1,6 +1,6 @@
 {
   "name": "@ploutos/admin",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": " An admin package for Nest.JS application. Users,Roles,Permissions",
   "author": "Ploutarchos Michaelides",
   "license": "MIT",
