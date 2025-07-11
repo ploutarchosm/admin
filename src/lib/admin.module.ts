@@ -7,9 +7,10 @@ import { RolePermission, RolePermissionSchema } from "./schemas/role-permission.
 import { UserRoles, UserRolesSchema } from "./schemas/user-role.schema";
 import { Provider, ProviderSchema } from "./schemas/provider.schema";
 import { UserService } from "./services/user.service";
-import { INJECTION_TOKENS } from "@ploutos/common";
 import { PermissionService } from "./services/permission.service";
 import { RoleService } from "./services/role.service";
+import { ProviderService } from "./services/provider.service";
+import { INJECTION_TOKENS } from "@ploutos/common";
 
 @Global() // Makes providers available globally
 @Module({
@@ -35,12 +36,17 @@ import { RoleService } from "./services/role.service";
         {
             provide: INJECTION_TOKENS.ROLE_SERVICE,
             useClass: RoleService,
+        },
+        {
+            provide: INJECTION_TOKENS.PROVIDER_SERVICE,
+            useClass: ProviderService,
         }
     ],
     exports: [
         INJECTION_TOKENS.USER_SERVICE,
         INJECTION_TOKENS.PERMISSION_SERVICE,
         INJECTION_TOKENS.ROLE_SERVICE,
+        INJECTION_TOKENS.PROVIDER_SERVICE,
     ],
 })
 export class AdminModule {}
